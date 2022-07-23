@@ -5,7 +5,7 @@ filename: misc.h
 #define _MISC_H_
 
 #define USING_RTOS	0
-#define USING_F1	1
+#define USING_G0	1
 
 #if USING_RTOS
 #include "cmsis_os.h"
@@ -19,10 +19,14 @@ filename: misc.h
 #include "stm32f1xx_hal.h"
 #endif
 
+#if USING_G0
+#include "stm32g0xx_hal.h"
+#endif
+
 #define NOP __NOP
 #define CALLBACK_MSG_LEN	48
 #define DEV_NAME_LEN		16
-#define MAX_CMD_LEN			512
+#define MAX_CMD_LEN			256
 #define MAX_TASK			64
 #define MAX_INSTANCE		16
 
@@ -50,7 +54,8 @@ typedef uint16_t 	u16;
 typedef uint32_t 	u32;
 typedef int8_t 		s8;
 typedef int16_t 	s16;
-typedef int32_t 	s32;
+//typedef int32_t 	s32;
+typedef int			s32;
 
 typedef struct {
 	GPIO_TypeDef* GPIOx;	// Port Register Base addr.
@@ -64,10 +69,10 @@ typedef struct{
 	PIN_T PC0,PC1,PC2,PC3;
 	PIN_T PD0,PD1,PD2,PD3;
 	//SPI IIC ADC TIM
-	SPI_HandleTypeDef* SPI_HANDLE;
-	I2C_HandleTypeDef* IIC_HANDLE;
-	ADC_HandleTypeDef* UART_HANDLE;
-	TIM_HandleTypeDef* TIM_HANDLE;
+	void* SPI_HANDLE;
+	void* IIC_HANDLE;
+	void* UART_HANDLE;
+	void* TIM_HANDLE;
 	void (*Setup)(u8 argc, void* argp);
 }DEV_PORT;
 
@@ -108,7 +113,7 @@ typedef struct {
 } CMD_FUNC_T;
 
 extern char CMD_END[4];
-
+extern const u32 BAUD[8];
 /* delay about 1us*/
 void miscDelay(u8 us);
 s16 strFormat(char *buf, u16 len, const char* FORMAT_ORG, ...);

@@ -17,6 +17,11 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 char CMD_END[4] = "\r\n";
+
+const u32 BAUD[8] = {
+	230400,128000,115200,57600,56000,38400,19200,9600
+};
+
 /* Private function prototypes -----------------------------------------------*/
 /*******************************************************************************
 * Function Name  : delay
@@ -40,7 +45,6 @@ s16 strFormat(char *buf, u16 len, const char* FORMAT_ORG, ...){
 	s16 bytes;
 	//take string
 	if(FORMAT_ORG == NULL)	return -1;
-	memset(buf, 0, len);
 	va_start(ap, FORMAT_ORG);
 	bytes = vsnprintf(buf, len, FORMAT_ORG, ap);
 	va_end(ap);
