@@ -26,7 +26,7 @@ filename: misc.h
 #define NOP __NOP
 #define CALLBACK_MSG_LEN	48
 #define DEV_NAME_LEN		16
-#define MAX_CMD_LEN			256
+#define MAX_CMD_LEN			512
 #define MAX_TASK			64
 #define MAX_INSTANCE		16
 
